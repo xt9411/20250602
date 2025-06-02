@@ -18,8 +18,7 @@ let capturedBlocks = 0; // 計算 U 型圖案內接到的方塊數量
 function preload() {
   // 確保 ml5.js 已正確載入
   if (typeof ml5 === 'undefined') {
-    console.error("ml5.js 未正確載入，請確認是否已包含 ml5.js 的 CDN 或本地檔案。");
-    return;
+    throw new Error("ml5.js 未正確載入，請確認是否已包含 ml5.js 的 CDN 或本地檔案。");
   }
 
   // Initialize HandPose model with flipped video input
@@ -48,8 +47,7 @@ function setup() {
 
   // 確保 handPose 已正確初始化
   if (!handPose) {
-    console.error("HandPose 模型未正確初始化，請確認 ml5.js 是否正確載入。");
-    return;
+    throw new Error("HandPose 模型未正確初始化，請確認 ml5.js 是否正確載入。");
   }
 
   // Start detecting hands
