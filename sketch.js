@@ -16,8 +16,14 @@ let fallingBlocks = []; // 儲存落下的方塊
 let capturedBlocks = 0; // 計算 U 型圖案內接到的方塊數量
 
 function preload() {
+  // 確保 ml5.js 已正確載入
+  if (typeof ml5 === 'undefined') {
+    console.error("ml5.js 未正確載入，請確認是否已包含 ml5.js 的 CDN 或本地檔案。");
+    return;
+  }
+
   // Initialize HandPose model with flipped video input
-  handPose = ml5.handPose(video, { flipped: true }); // 修正初始化 HandPose 的參數
+  handPose = ml5.handPose({ flipped: true }); // 修正初始化 HandPose 的參數
 }
 
 function mousePressed() {
@@ -39,6 +45,12 @@ function setup() {
   // U 型圖案初始位置設置在 "TK" 的右邊
   circleX = 100 + circleRadius * 2;
   circleY = 50;
+
+  // 確保 handPose 已正確初始化
+  if (!handPose) {
+    console.error("HandPose 模型未正確初始化，請確認 ml5.js 是否正確載入。");
+    return;
+  }
 
   // Start detecting hands
   handPose.on('predict', gotHands); // 修正事件監聽器的使用方式
